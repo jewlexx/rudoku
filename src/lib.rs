@@ -26,3 +26,14 @@ pub trait Generate: std::marker::Sized {
 pub fn gen_seed() -> Seed {
     Seed::default()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_gen_board() {
+        let board = board::Board::generate();
+        println!("{:?}", board);
+    }
+}
