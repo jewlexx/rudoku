@@ -34,6 +34,6 @@ mod tests {
     #[test]
     fn test_gen_board() {
         let board = board::Board::generate();
-        println!("{:?}", board);
+        println!("{}", board);
     }
 }

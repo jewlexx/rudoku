@@ -1,3 +1,5 @@
+use std::fmt::{Display, Formatter};
+
 use rand::{distributions::Standard, prelude::Distribution, Rng};
 
 use crate::{seed::Seed, Generate};
@@ -20,6 +22,16 @@ impl Generate for Number {}
 impl Default for Number {
     fn default() -> Self {
         Self::generate()
+    }
+}
+
+impl Display for Number {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        if self.value == 0 {
+            write!(f, ".")
+        } else {
+            write!(f, "{}", self.value)
+        }
     }
 }
 
@@ -56,6 +68,18 @@ impl Default for Cube {
     }
 }
 
+impl Display for Cube {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        for row in self.rows {
+            for number in row {
+                write!(f, "{} ", number)?;
+            }
+        }
+
+        Ok(())
+    }
+}
+
 #[derive(Debug, Copy, Clone)]
 pub struct Board {
     cubes: [[Cube; 3]; 3],
@@ -80,5 +104,17 @@ impl Generate for Board {}
 impl Default for Board {
     fn default() -> Self {
         Self::generate()
+    }
+}
+
+impl Display for Board {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        for row in self.cubes {
+            for cube in row {
+                write!(f, "{}| ", cube)?;
+            }
+        }
+
+        Ok(())
     }
 }
