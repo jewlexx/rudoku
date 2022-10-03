@@ -18,3 +18,9 @@ impl Default for Seed {
         Self::generate()
     }
 }
+
+impl From<Seed> for [u8; 32] {
+    fn from(seed: Seed) -> Self {
+        seed.0
+    }
+}
