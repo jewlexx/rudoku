@@ -1,14 +1,8 @@
-pub fn add(left: usize, right: usize) -> usize {
-    left + right
-}
+use rand::{prelude::*, SeedableRng};
+use rand_chacha::ChaCha8Rng;
 
-#[cfg(test)]
-mod tests {
-    use super::*;
+pub type Seed = <ChaCha8Rng as SeedableRng>::Seed;
 
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
-    }
+pub fn gen_seed() -> Seed {
+    thread_rng().gen()
 }
