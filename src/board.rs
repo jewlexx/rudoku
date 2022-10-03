@@ -50,8 +50,35 @@ impl Distribution<Cube> for Standard {
 
 impl Generate for Cube {}
 
+impl Default for Cube {
+    fn default() -> Self {
+        Self::generate()
+    }
+}
+
 #[derive(Debug, Copy, Clone)]
 pub struct Board {
-    seed: Seed,
     cubes: [[Cube; 3]; 3],
+}
+
+impl Distribution<Board> for Standard {
+    fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> Board {
+        let mut cubes = [[Cube::default(); 3]; 3];
+
+        for cubes in cubes.iter_mut() {
+            for cube in cubes.iter_mut() {
+                *cube = Cube::generate_seeded(rng);
+            }
+        }
+
+        Board { cubes }
+    }
+}
+
+impl Generate for Board {}
+
+impl Default for Board {
+    fn default() -> Self {
+        Self::generate()
+    }
 }
