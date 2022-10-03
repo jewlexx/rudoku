@@ -1,10 +1,11 @@
-use rand::{prelude::*, SeedableRng};
 use rand_chacha::ChaCha8Rng;
 
-pub type Seed = <ChaCha8Rng as SeedableRng>::Seed;
+use seed::Seed;
+
+pub mod seed;
 
 pub fn gen_seed() -> Seed {
-    thread_rng().gen()
+    Seed::default()
 }
 
 #[cfg(test)]
@@ -14,6 +15,7 @@ mod tests {
     #[test]
     fn test_gen_seed() {
         let seed = gen_seed();
-        assert_eq!(seed.len(), 32);
+
+        println!("{:?}", seed);
     }
 }
